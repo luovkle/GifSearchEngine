@@ -1,15 +1,11 @@
-const apiKey = import.meta.env.VITE_API_KEY;
-const limit = 10;
-const baseUrl = "https://api.giphy.com/v1/gifs/search";
-
 export const getGifs = async (category) => {
-  const completeUrl = `${baseUrl}?api_key=${apiKey}&q=${category}&limit=${limit}`;
-  const res = await fetch(completeUrl)
-  const { data } = await res.json()
-  const gifs = data.map((gif) => ({
-    id: gif.id,
-    title: gif.title,
-    url: gif.images.downsized_medium.url,
+  const url = `http://127.0.0.1:8000/${category}`;
+  const res = await fetch(url);
+  const data = await res.json();
+  const gifs = data.map((img) => ({
+    id: img.id,
+    title: img.title,
+    url: img.images.downsized_medium.url,
   }));
   return gifs;
 };
